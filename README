@@ -2,4 +2,4 @@ This will test logging into an Apache VCL instance, creating a reservation, and 
 
 The config.yaml file will need to be created, probably by copying the config.yaml.example file and entering the correct information.
 
-NOTE: This is a work on progress!
+NOTE: This is a work in progress! Proof of concept!
