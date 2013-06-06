@@ -1,0 +1,5 @@
+config:
+  vcl_url: https://vcl.example.com
+  userid: fred
+  password: example_password 
+  max_wait_for_connection: 400
