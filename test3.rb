@@ -93,7 +93,28 @@ while $total_sleep < @max_wait_for_connection do
 	end
 
 end
- 
+
+# Don't work....xpath 2.0 has support for regexes, but I can't even find out what version of xpath  is
+# being used here...
+#remote_computer = browser.find_element(:xpath, "//*[contains(text(), '^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')]").text
+#remote_password = browser.find_element(:xpath, "//*[contains(text(), 'Password')]/following-sibling::node()").text
+#remote_computer = browser.find_element(:xpath, "//*[contains(text(), 'Remote Computer')]/following-sibling::node()").text
+#remote_computer = browser.find_element(:xpath, "//*[contains(text(), '^.*199.*$')]").text
+#/html/body/table/tbody/tr/td[4]/table[2]/tbody/tr/td[2]/div/ul/li
+#remote_computer = browser.find_element(:xpath, "//*[contains(text(), '^.*199.*$')]").text
+#driver.find_element(:xpath,"//table[contains(@id,'searchTable')]/tbody/tr[contains(@code,"PowerSelect")]/td").click
+#/html/body/table/tbody/tr/td[4]/table[2]/tbody/tr/td[2]/div/ul/li[2]
+
+# This works, but might be brittle...
+remote_computer = browser.find_element(:xpath, "/html/body/table/tbody/tr/td[4]/table[2]/tbody/tr/td[2]/div/ul/li").text
+remote_password = browser.find_element(:xpath, "/html/body/table/tbody/tr/td[4]/table[2]/tbody/tr/td[2]/div/ul/li[3]").text
+
+remote_connection_info = /\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\:[0-9]{5}\b/.match(remote_computer)
+remote_password_info = /\b\w{6}\b/.match(remote_password)
+
+puts "LOG: remove connection info " + remote_connection_info.to_s
+puts "LOG: remote password is " + remote_password_info.to_s
+
 puts "LOG: Exiting..."
 
 # Quit the browswer
